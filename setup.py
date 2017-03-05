@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
 
-INSTALL_REQUIRES = ['']
+INSTALL_REQUIRES = ['argparse', 'PyJWT']
 
 setup(
     name='macedonia',
