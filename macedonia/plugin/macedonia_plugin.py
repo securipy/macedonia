@@ -121,6 +121,6 @@ class MacedoniaPlugin(object):
 
     def writeLogConsole(self,msg,error=False):
         if self.log or error:
-            self.__writeLog(msg)
+            self.writeLog(msg)
         if self.verbose:
-            self.__consoleMessage(msg)
+            self.consoleMessage(msg)
