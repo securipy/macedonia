@@ -1,14 +1,16 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- encoding: utf-8 -*-
 
 """ Macedonia Plugin """
 
 import sys
+import os
 import smtplib
 import time, datetime
 from time import gmtime, strftime
 import argparse
 import jwt
+import requests
 #Delorean
 
 
@@ -61,7 +63,7 @@ class MacedoniaPlugin(object):
         return jwt.encode({'public_key':public_key, 'module':self.name}, private_key, algorithm=self.algorithm)
 
 
-    def __sendEmail(self,alert_mac,opts):
+    def sendEmail(self,alert_mac,opts):
         """
         This function send mail with the report
         """
@@ -80,13 +82,13 @@ class MacedoniaPlugin(object):
         if self.verbose or self.log:
             debugemail = server.set_debuglevel(1)
             if self.verbose:
-                self.__consoleMessage(debugemail)
+                self.consoleMessage(debugemail)
         problems = server.sendmail(opts.user, opts.emailto, message)
         print (problems)
         server.quit()
 
 
-    def __consoleMessage(self,message):
+    def consoleMessage(self,message):
         """
         This function write console message
         """
@@ -95,7 +97,7 @@ class MacedoniaPlugin(object):
         print ("[{}] {}".format(st, message))
 
 
-    def __writeLog(self,log):
+    def writeLog(self,log):
         """
         This function write log
         """
@@ -109,17 +111,17 @@ class MacedoniaPlugin(object):
             except IOError:
                 msg = 'ERROR: Cannot open log.txt'
                 if self.verbose:
-                    self.__consoleMessage(msg)
+                    self.consoleMessage(msg)
                 sys.exit(-1)
         else:
             msg = "ERROR: The log file  doesn't exist!"
             if self.verbose:
-                self.__consoleMessage(msg)
+                self.consoleMessage(msg)
             sys.exit(-1)
 
-    def __writeLogConsole(self,msg):
+    def writeLogConsole(self,msg):
         if self.log:
-            self.__writeLog(msg)
+            self.writeLog(msg)
 
         if self.verbose:
-            self.__consoleMessage(msg)
+            self.consoleMessage(msg)
