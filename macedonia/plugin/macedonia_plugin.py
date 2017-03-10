@@ -119,9 +119,8 @@ class MacedoniaPlugin(object):
                 self.consoleMessage(msg)
             sys.exit(-1)
 
-    def writeLogConsole(self,msg):
-        if self.log:
-            self.writeLog(msg)
-
+    def writeLogConsole(self,msg,error=False):
+        if self.log or error:
+            self.__writeLog(msg)
         if self.verbose:
-            self.consoleMessage(msg)
+            self.__consoleMessage(msg)
